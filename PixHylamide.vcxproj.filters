@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{447fba14-1790-41c9-9a17-7d6a9a8975c3}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{de17327f-5f21-45be-8fa5-77e18c6e8cea}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{1400500e-4e6f-4995-baf8-9b74b67d8f0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameEngine">
+      <UniqueIdentifier>{d56b7542-f512-4706-b331-399f9c4a970d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{c110c5c1-a682-4ebb-9fb7-3de2315823a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameEngine">
+      <UniqueIdentifier>{89405a83-756c-4720-83ef-a62faff4a740}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameEngine\Physic">
+      <UniqueIdentifier>{588ef2d6-84f2-4b95-9a2f-edab8e913cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameEngine\SpacialScene">
+      <UniqueIdentifier>{8d804b28-eb17-4f68-be5e-af0b118875a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameEngine\Gameplay">
+      <UniqueIdentifier>{7fda1ff7-d96e-401d-b3b3-8daac7a5534f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_OpenGLWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_OpenGLWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MainWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="code\src\EditorView.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="code\src\MainWindow.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="code\src\OpenGLWidget.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_EditorView.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_EditorView.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="code\src\TabMap.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_TabMap.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_TabMap.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="code\hdr\EditorView.h">
+      <Filter>Header Files\GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="code\hdr\MainWindow.h">
+      <Filter>Header Files\GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="code\hdr\OpenGLWidget.h">
+      <Filter>Header Files\GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="code\hdr\TabMap.h">
+      <Filter>Header Files\GUI</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="code\hdr\SpacialHashMap.h">
+      <Filter>Header Files\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="code\hdr\ScrollCanvas.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

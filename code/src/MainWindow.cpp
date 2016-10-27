@@ -44,9 +44,17 @@ MainWindow::MainWindow() {
 
 	QMenu *displayMenu = menuBar()->addMenu("&Affichage");
 
+	QPushButton* quitButton = new QPushButton("X");
+	//quitButton->setIcon(QIcon("ressources/GUI/icons/14_Delete.ico"));
+	quitButton->setStyleSheet("border-radius: 0; background-color: #972626;");
+
+	menuBar()->setCornerWidget(quitButton, Qt::TopRightCorner);
+	menuBar()->setStyleSheet("background-color: #262626;");
+
 	// Création de la barre d'outils
 	QToolBar *toolBar = addToolBar("Fichier");
 	toolBar->setMovable(false);
+	toolBar->setIconSize(QSize(24, 24));
 
 	toolBar->addAction(actionNew);
 	toolBar->addAction(actionOpen);
@@ -56,10 +64,6 @@ MainWindow::MainWindow() {
 	toolBar->addAction(actionPrevious);
 	toolBar->addAction(actionNext);
 	toolBar->addSeparator();
-	toolBar->addAction(actionQuit);
-
-	QFontComboBox *choixPolice = new QFontComboBox;
-	toolBar->addWidget(choixPolice);
 
 	// Création des docks
 	QDockWidget *dock = new QDockWidget("Palette", this);
@@ -88,21 +92,14 @@ MainWindow::MainWindow() {
 	m_multipleDocumentInterface->setViewMode(QMdiArea::TabbedView);
 	m_multipleDocumentInterface->setTabsClosable(true);
 
-	ScrollCanvas* scrollArea1 = new ScrollCanvas();
-
 	EditorView* openGL1 = new EditorView();
-	EditorView* openGL2 = new EditorView();
-
-	scrollArea1->setViewport(openGL1);
-	scrollArea1->setBackgroundRole(QPalette::Dark);
-	scrollArea1->setVisible(true);
-	
-	/*QScrollArea* scrollArea1 = new QScrollArea();
+		
+	QScrollArea* scrollArea1 = new QScrollArea();
 	scrollArea1->setBackgroundRole(QPalette::Dark);
 	scrollArea1->setWidget(openGL1);
 	scrollArea1->setAlignment(Qt::AlignCenter);
 	scrollArea1->setWidgetResizable(false);
-	scrollArea1->setVisible(true);*/
+	scrollArea1->setVisible(true);
 
 	QMdiSubWindow* subWindow1 = m_multipleDocumentInterface->addSubWindow(scrollArea1, Qt::SubWindow);
 	subWindow1->setOption(QMdiSubWindow::RubberBandResize, true);
@@ -111,17 +108,12 @@ MainWindow::MainWindow() {
 	subWindow1->setAttribute(Qt::WA_DeleteOnClose);
 	subWindow1->showMaximized();
 
-	QMdiSubWindow* subWindow2 = m_multipleDocumentInterface->addSubWindow(openGL2, Qt::SubWindow);
-	subWindow2->setOption(QMdiSubWindow::RubberBandResize, true);
-	subWindow2->setOption(QMdiSubWindow::SubWindowOption::AllowOutsideAreaHorizontally, false);
-	subWindow2->setOption(QMdiSubWindow::SubWindowOption::AllowOutsideAreaVertically, false);
-	subWindow2->setAttribute(Qt::WA_DeleteOnClose);
-	subWindow2->showMaximized();
-
 	setCentralWidget(m_multipleDocumentInterface);
+	setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
 	// Connexion des signaux
 	connect(actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
+	connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(slot_new(void)));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(slot_open(void)));
 	connect(actionSave, SIGNAL(triggered()), this, SLOT(slot_save(void)));
@@ -185,3 +177,21 @@ void MainWindow::slot_closeTab(QObject* destroyedTab) {
 	//std::string tabName = (editorViewToClose->getName()).toStdString();
 	//std::cout << tabName << std::endl;
 }
+
+
+
+void MainWindow::mousePressEvent(QMouseEvent *event) {
+	m_diff = event->pos();
+	setCursor(QCursor(Qt::SizeAllCursor));
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
+	Q_UNUSED(event);
+	setCursor(QCursor(Qt::ArrowCursor));
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event) {
+	QPoint p = event->globalPos();
+	window()->move(p - m_diff);
+}
+

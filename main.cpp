@@ -13,6 +13,11 @@ int main(int argc, char *argv[]) {
 
 	mainWindow.setStyleSheet(StyleSheet);
 
-	mainWindow.showMaximized();
+	QRect screenGeometry = QApplication::desktop()->screenGeometry();
+	int x = (screenGeometry.width()/2 - mainWindow.width());
+	int y = (screenGeometry.height()/2 - mainWindow.height());
+	mainWindow.move(x, y);
+	mainWindow.show();
+
 	return app.exec();
 }

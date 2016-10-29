@@ -2,72 +2,33 @@
 
 MainWindow::MainWindow() {
 
-	// Création des menus
-	QMenu *fileMenu = menuBar()->addMenu("&Fichier");
+	m_menuBar = new MainWindowMenu(this);
+	setMenuBar(m_menuBar);
 
-	QAction *actionNew = fileMenu->addAction("&Nouveau");
-	actionNew->setShortcut(QKeySequence("Ctrl+N"));
-	actionNew->setIcon(QIcon("ressources/GUI/icons/30_Office.ico"));
-
-	fileMenu->addSeparator();
-
-	QAction *actionOpen = fileMenu->addAction("&Ouvrir");
-	actionOpen->setShortcut(QKeySequence("Ctrl+O"));
-	actionOpen->setIcon(QIcon("ressources/GUI/icons/15_Photo.ico"));
-
-	QAction *actionSave = fileMenu->addAction("&Enregistrer");
-	actionSave->setShortcut(QKeySequence("Ctrl+S"));
-	actionSave->setIcon(QIcon("ressources/GUI/icons/04_Save.ico"));
-
-	QAction *actionSaveAs = fileMenu->addAction("&Enregistrer sous ...");
-
-	fileMenu->addSeparator();
-
-	QAction *actionQuit = fileMenu->addAction("&Quitter");
-	actionQuit->setShortcut(QKeySequence("Ctrl+Q"));
-
-
-	QMenu *editMenu = menuBar()->addMenu("&Edition");
-
-	QAction *actionSelectAll = editMenu->addAction("&Tout selectionner");
-	actionSelectAll->setShortcut(QKeySequence("Ctrl+A"));
-
-	editMenu->addSeparator();
-
-	QAction *actionPrevious = editMenu->addAction("&Precedent");
-	actionPrevious->setShortcut(QKeySequence("Ctrl+Z"));
-	actionPrevious->setIcon(QIcon("ressources/GUI/icons/19_Left_Arrow.ico"));
-
-	QAction *actionNext = editMenu->addAction("&Suivant");
-	actionNext->setShortcut(QKeySequence("Alt+Z"));
-	actionNext->setIcon(QIcon("ressources/GUI/icons/20_Right_Arrow.ico"));
-
-	QMenu *displayMenu = menuBar()->addMenu("&Affichage");
-
-	QPushButton* quitButton = new QPushButton("X");
-	//quitButton->setIcon(QIcon("ressources/GUI/icons/14_Delete.ico"));
-	quitButton->setStyleSheet("border-radius: 0; background-color: #972626;");
-
-	menuBar()->setCornerWidget(quitButton, Qt::TopRightCorner);
-	menuBar()->setStyleSheet("background-color: #262626;");
+	m_statusBar = new StatusBar(this);
+	setStatusBar(m_statusBar);
+	m_statusBar->displayMessage("Bienvenue dans Dendy Draw by Dendy Softainement (Daniel Huc)");
 
 	// Création de la barre d'outils
-	QToolBar *toolBar = addToolBar("Fichier");
+	QToolBar *toolBar = addToolBar("Outils");
 	toolBar->setMovable(false);
 	toolBar->setIconSize(QSize(24, 24));
 
-	toolBar->addAction(actionNew);
-	toolBar->addAction(actionOpen);
+	toolBar->addAction(m_menuBar->action_New);
+	toolBar->addAction(m_menuBar->action_Open);
 	toolBar->addSeparator();
-	toolBar->addAction(actionSave);
+	toolBar->addAction(m_menuBar->action_Save);
 	toolBar->addSeparator();
-	toolBar->addAction(actionPrevious);
-	toolBar->addAction(actionNext);
+	toolBar->addAction(m_menuBar->action_Previous);
+	toolBar->addAction(m_menuBar->action_Next);
 	toolBar->addSeparator();
 
 	// Création des docks
 	QDockWidget *dock = new QDockWidget("Palette", this);
 	addDockWidget(Qt::LeftDockWidgetArea, dock);
+
+	QDockWidget *dock2 = new QDockWidget("GameObjects", this);
+	addDockWidget(Qt::RightDockWidgetArea, dock2);
 
 	QWidget *contenuDock = new QWidget;
 	dock->setWidget(contenuDock);
@@ -91,33 +52,17 @@ MainWindow::MainWindow() {
 	m_multipleDocumentInterface = new QMdiArea();
 	m_multipleDocumentInterface->setViewMode(QMdiArea::TabbedView);
 	m_multipleDocumentInterface->setTabsClosable(true);
-
-	EditorView* openGL1 = new EditorView();
-		
-	QScrollArea* scrollArea1 = new QScrollArea();
-	scrollArea1->setBackgroundRole(QPalette::Dark);
-	scrollArea1->setWidget(openGL1);
-	scrollArea1->setAlignment(Qt::AlignCenter);
-	scrollArea1->setWidgetResizable(false);
-	scrollArea1->setVisible(true);
-
-	QMdiSubWindow* subWindow1 = m_multipleDocumentInterface->addSubWindow(scrollArea1, Qt::SubWindow);
-	subWindow1->setOption(QMdiSubWindow::RubberBandResize, true);
-	subWindow1->setOption(QMdiSubWindow::SubWindowOption::AllowOutsideAreaHorizontally, false);
-	subWindow1->setOption(QMdiSubWindow::SubWindowOption::AllowOutsideAreaVertically, false);
-	subWindow1->setAttribute(Qt::WA_DeleteOnClose);
-	subWindow1->showMaximized();
-
+	m_multipleDocumentInterface->setTabsMovable(true);
+	
 	setCentralWidget(m_multipleDocumentInterface);
 	setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
 	// Connexion des signaux
-	connect(actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
-	connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-	connect(actionNew, SIGNAL(triggered()), this, SLOT(slot_new(void)));
-	connect(actionOpen, SIGNAL(triggered()), this, SLOT(slot_open(void)));
-	connect(actionSave, SIGNAL(triggered()), this, SLOT(slot_save(void)));
-	connect(actionSaveAs, SIGNAL(triggered()), this, SLOT(slot_save(void)));
+	connect(m_menuBar->action_Quit, SIGNAL(triggered()), qApp, SLOT(quit()));
+	connect(m_menuBar->action_New, SIGNAL(triggered()), this, SLOT(slot_new(void)));
+	connect(m_menuBar->action_Open, SIGNAL(triggered()), this, SLOT(slot_open(void)));
+	connect(m_menuBar->action_Save, SIGNAL(triggered()), this, SLOT(slot_save(void)));
+	connect(m_menuBar->action_SaveAs, SIGNAL(triggered()), this, SLOT(slot_save(void)));
 }
 
 void MainWindow::slot_new() {
@@ -177,21 +122,3 @@ void MainWindow::slot_closeTab(QObject* destroyedTab) {
 	//std::string tabName = (editorViewToClose->getName()).toStdString();
 	//std::cout << tabName << std::endl;
 }
-
-
-
-void MainWindow::mousePressEvent(QMouseEvent *event) {
-	m_diff = event->pos();
-	setCursor(QCursor(Qt::SizeAllCursor));
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
-	Q_UNUSED(event);
-	setCursor(QCursor(Qt::ArrowCursor));
-}
-
-void MainWindow::mouseMoveEvent(QMouseEvent *event) {
-	QPoint p = event->globalPos();
-	window()->move(p - m_diff);
-}
-

@@ -5,19 +5,28 @@
 int main(int argc, char *argv[]) {
 
 	QApplication app(argc, argv);
-	MainWindow mainWindow;
+	QFrame* frame = new QFrame();
+	MainWindow* mainWindow = new MainWindow();
 
 	QFile File("ressources/GUI/QTDark.stylesheet");
 	File.open(QFile::ReadOnly);
 	QString StyleSheet = QLatin1String(File.readAll());
 
-	mainWindow.setStyleSheet(StyleSheet);
+	mainWindow->setStyleSheet(StyleSheet);
+	mainWindow->setWindowIcon(QIcon("ressources/GUI/profil.png"));
 
-	QRect screenGeometry = QApplication::desktop()->screenGeometry();
-	int x = (screenGeometry.width()/2 - mainWindow.width());
-	int y = (screenGeometry.height()/2 - mainWindow.height());
-	mainWindow.move(x, y);
-	mainWindow.show();
+	frame->setGeometry(
+		QStyle::alignedRect(
+		Qt::LeftToRight,
+		Qt::AlignCenter,
+		mainWindow->size(),
+		qApp->desktop()->availableGeometry()));
+
+	frame->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+	frame->setStyleSheet(".QFrame{background-color: #262626; border: 1px solid #565656; border-radius: 5px;}");
+	frame->setLayout(new QHBoxLayout());
+	frame->layout()->addWidget(mainWindow);
+	frame->show();	
 
 	return app.exec();
 }

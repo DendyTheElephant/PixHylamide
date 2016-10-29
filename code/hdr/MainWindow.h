@@ -4,15 +4,17 @@
 #include <iostream>
 
 #include "EditorView.h"
-#include "ScrollCanvas.h"
+#include "MainWindowMenu.h"
+#include "StatusBar.h"
 
 class MainWindow : public QMainWindow {
 	Q_OBJECT
 private:
+	MainWindowMenu* m_menuBar;
+	StatusBar* m_statusBar;
 	std::map<QString,QMdiSubWindow*> m_openedMaps;
 	QMdiArea* m_multipleDocumentInterface{ nullptr };
 	unsigned int m_newFiles_counter{ 0 };
-	QPoint m_diff;
 
 public slots:
 	void slot_new();
@@ -21,8 +23,4 @@ public slots:
 	void slot_closeTab(QObject* destroyedTab);
 public:
 	explicit MainWindow();
-
-	void mousePressEvent(QMouseEvent *event);
-	void mouseReleaseEvent(QMouseEvent *event);
-	void mouseMoveEvent(QMouseEvent *event);
 };

@@ -9,13 +9,17 @@ StatusBar::StatusBar(QWidget* parent) {
 	//m_label->setMinimumWidth(600);
 
 	m_progress = new QProgressBar();
-	m_progress->setMaximumWidth(100);
-	m_progress->setMinimumWidth(100);
+	m_progress->setMaximumWidth(200);
+	m_progress->setMinimumWidth(200);
+	m_progress->setMaximumHeight(16);
+
+	m_progress->setAlignment(Qt::AlignRight);
+	m_progress->setValue(50);
 
 	m_grip = new QSizeGrip(this);
 
 	addWidget(m_label);
-	addWidget(m_progress);
+	addPermanentWidget(m_progress);
 }
 
 void StatusBar::displayMessage(QString msg) {

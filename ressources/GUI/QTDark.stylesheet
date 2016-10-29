@@ -238,6 +238,7 @@ QDockWidget {
 }
 
 QDockWidget::title {
+	border: 1px solid #565656;
     text-align: center;
     height: 20px;
     background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #525252, stop: 0.05 #525252, stop: 0.06 #262626, stop:1 #262626);
@@ -253,7 +254,6 @@ QDockWidget::close-button, QDockWidget::float-button {
 
 QMainWindow::separator {
     background-color: #5A5A5A;
-    border: 0px solid #4c4c4c;
 	width: 5px;
 }
 
@@ -269,14 +269,13 @@ QMenu::separator {
 
 QProgressBar {
     border: 1px solid grey;
-    border-radius: 0px;
-    text-align: center;
+    border-radius: 2px;
+    text-align: right;
 }
 
-QProgressBar::chunk
-{
-    background-color: #d7801a;
-    width: 2.15px;
+QProgressBar::chunk {
+    background-color: #3D7848;
+    width: 5px;
     margin: 0.5px;
 }
 
@@ -312,7 +311,7 @@ QTabBar::tab:selected {
 }
 
 QTabBar::tab:!selected:hover {
-    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:0.4 #3D7848, stop:0.2 #3D7848, stop:0.1 #3D7848);
+    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #3D7848, stop:0.4 #343434, stop:0.2 #343434, stop:0.1 #343434);
 }
 
 QCheckBox, QRadioButton {

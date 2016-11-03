@@ -345,3 +345,20 @@ QRadioButton::indicator:checked:hover, QCheckBox::indicator:checked:hover {
 QSizeGrip {
     image: url(ressources/GUI/sizegrabber.png);
 }
+
+QSpinBox {
+	border: 1px solid grey; 
+	border-radius: 1px;
+	background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4d4d4d, stop: 0 #646464, stop: 1 #5d5d5d);
+	selection-background-color: #315127;
+}
+
+QSpinBox:focus {
+    border-width: 2px;
+	border-radius: 0px;
+}
+
+QGraphicsView {
+	border: none;
+	background: url(ressources/bg.png);
+}

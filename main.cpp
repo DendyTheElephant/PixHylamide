@@ -23,10 +23,11 @@ int main(int argc, char *argv[]) {
 		qApp->desktop()->availableGeometry()));
 
 	frame->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-	frame->setStyleSheet(".QFrame{background-color: #262626; border: 1px solid #565656; border-radius: 1px;}");
+	frame->setStyleSheet(".QFrame{background-color: #262626; border: 1px solid #565656; border-radius: 1px; padding: 0px;}");
 	frame->setLayout(new QHBoxLayout());
+	frame->layout()->setContentsMargins(10, 10, 10, 10);
 	frame->layout()->addWidget(mainWindow);
-	frame->show();	
+	frame->show();
 
 	return app.exec();
 }

@@ -11,12 +11,6 @@ MainWindowMenu::MainWindowMenu(QWidget* parent) {
 
 	m_fileMenu = addMenu("&Fichier");
 
-	action_New = m_fileMenu->addAction("&Nouveau");
-	action_New->setShortcut(QKeySequence("Ctrl+N"));
-	action_New->setIcon(QIcon("ressources/GUI/icons/30_Office.ico"));
-
-	m_fileMenu->addSeparator();
-
 	action_Open = m_fileMenu->addAction("&Ouvrir");
 	action_Open->setShortcut(QKeySequence("Ctrl+O"));
 	action_Open->setIcon(QIcon("ressources/GUI/icons/15_Photo.ico"));
@@ -24,8 +18,10 @@ MainWindowMenu::MainWindowMenu(QWidget* parent) {
 	action_Save = m_fileMenu->addAction("&Enregistrer");
 	action_Save->setShortcut(QKeySequence("Ctrl+S"));
 	action_Save->setIcon(QIcon("ressources/GUI/icons/04_Save.ico"));
+	action_Save->setEnabled(false);
 
 	action_SaveAs = m_fileMenu->addAction("&Enregistrer sous ...");
+	action_SaveAs->setEnabled(false);
 
 	m_fileMenu->addSeparator();
 
@@ -56,17 +52,18 @@ MainWindowMenu::MainWindowMenu(QWidget* parent) {
 	QHBoxLayout* windowButtonsLayout = new QHBoxLayout();
 	QPushButton* quitButton = new QPushButton();
 	quitButton->setIcon(QIcon("ressources/GUI/close.png"));
-	quitButton->setStyleSheet("border: none; background: transparent; icon-size: 16px;");
+	quitButton->setStyleSheet("border: none; background: transparent; icon-size: 18px;");
 	QPushButton* reduceButton = new QPushButton();
 	reduceButton->setIcon(QIcon("ressources/GUI/green.png"));
-	reduceButton->setStyleSheet("border: none; background: transparent; icon-size: 16px;");
+	reduceButton->setStyleSheet("border: none; background: transparent; icon-size: 18px;");
 	QPushButton* maximizeButton = new QPushButton();
 	maximizeButton->setIcon(QIcon("ressources/GUI/yellow.png"));
-	maximizeButton->setStyleSheet("border: none; background: transparent; icon-size: 16px;");
+	maximizeButton->setStyleSheet("border: none; background: transparent; icon-size: 18px;");
 
 	windowButtonsLayout->addWidget(reduceButton);
 	windowButtonsLayout->addWidget(maximizeButton);
 	windowButtonsLayout->addWidget(quitButton);
+	windowButtonsLayout->setContentsMargins(0, 0, 0, 0);
 
 	windowButtons->setLayout(windowButtonsLayout);
 

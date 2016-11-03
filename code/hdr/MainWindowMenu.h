@@ -37,7 +37,6 @@ private slots:
 public:
 	explicit MainWindowMenu(QWidget* parent = 0);
 
-	QAction* action_New;
 	QAction* action_Open;
 	QAction* action_Save;
 	QAction* action_SaveAs;

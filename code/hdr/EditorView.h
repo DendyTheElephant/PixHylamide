@@ -7,25 +7,41 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "OpenGLWidget.h"
+#include <QtWidgets>
 
-class EditorView : public OpenGLWidget {
+class EditorView : public QGraphicsView {
 	Q_OBJECT
 private:
 	bool m_isSavedOnce{ false };
 	bool m_isModifiedSinceLastSave{ true };
-	QString m_name;
-	QAbstractScrollArea *m_scrollingWidget;
+	QFileInfo m_filePath;
+
+	QImage m_image_background;
+	QImage m_image_sketch;
+	QImage m_image_normalMap;
+
+	QImage m_image_mask;
+	QPainter* m_painter;
+
+	QPoint m_polyLine[3];
+	bool m_styletDown{false};
+
+	QGraphicsScene* m_scene;
+	QGraphicsPixmapItem* m_layer_background;
+	QGraphicsPixmapItem* m_layer_sketch;
+	QGraphicsPixmapItem* m_layer_normalMap;
+
+	void mousePressEvent(QMouseEvent *event);
+	void mouseReleaseEvent(QMouseEvent *event);
+	void mouseMoveEvent(QMouseEvent *event);
+	void wheelEvent(QWheelEvent* event);
+
+	void tabletEvent(QTabletEvent *event);
+	void paintPixmap(QTabletEvent* event);
+
+	//void paintEvent(QPaintEvent *);
 
 public:
-	explicit EditorView(QWidget* parent = 0);
+	explicit EditorView(QFileInfo filePath, QWidget* parent = 0);
 	~EditorView();
-	void initializeGL();
-	void resizeGL(int width, int height);
-	void paintGL();
-
-	bool isSavedOnce() const { return m_isSavedOnce; }
-	bool isModifiedSinceLastSave() const { return m_isModifiedSinceLastSave; }
-	void setName(QString name) { m_name = name; }
-	QString getName() const { return m_name; }
 };

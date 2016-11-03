@@ -14,13 +14,11 @@ private:
 	StatusBar* m_statusBar;
 	std::map<QString,QMdiSubWindow*> m_openedMaps;
 	QMdiArea* m_multipleDocumentInterface{ nullptr };
-	unsigned int m_newFiles_counter{ 0 };
 
 public slots:
-	void slot_new();
 	void slot_open();
 	void slot_save();
 	void slot_closeTab(QObject* destroyedTab);
 public:
-	explicit MainWindow();
+	explicit MainWindow(QWidget* parent = 0);
 };
